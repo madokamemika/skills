@@ -2,27 +2,33 @@
 name: layout-rules
 description: >-
   The load-bearing foundations of a web layout — an explicit column grid
-  and shared alignment axes instead of invented offsets, one spacing scale,
-  a type scale that stays readable, content that never escapes its
+  and shared alignment axes instead of invented offsets, a real order of
+  visual importance, one spacing scale, a readable type scale, reuse of
+  the components and tokens a project already has instead of near-
+  duplicates, structure built in flow rather than coordinates, overlays
+  that escape their clipping ancestors, content that never escapes its
   container, components that survive real variable text, and a layout
   checked across the whole width range rather than at two mockup widths.
   Project-agnostic; carries no palette, fonts or class names of its own.
   Load before composing the first screen of an interface and before
-  shipping one. Triggers on layout, composition, alignment, grid and
-  columns, gutters and page padding, responsive design, mobile layout,
-  breakpoints, media queries, container and max-width, flexbox, overflow,
-  horizontal scrollbar, text wrapping and truncation, long URLs, font
-  sizes, line-height, line length, fluid type and clamp(), spacing scale,
-  whitespace, touch targets, empty and error states, and on any report
-  that a page "breaks", "overflows", "looks cramped", "feels misaligned"
-  or "is broken on mobile".
+  shipping one. Triggers on layout, composition, alignment, visual
+  hierarchy, grid and columns, gutters and page padding, responsive
+  design, mobile layout, breakpoints, media queries, container and
+  max-width, flexbox, absolute positioning, z-index and stacking
+  contexts, dropdowns, tooltips, popovers and modals being cut off,
+  design tokens and component variants, overflow, horizontal scrollbar,
+  text wrapping and truncation, long URLs, font sizes, line-height, line
+  length, fluid type and clamp(), spacing scale, whitespace, touch
+  targets, empty and error states, and on any report that a page
+  "breaks", "overflows", "looks cramped", "feels flat", "feels
+  misaligned" or "is broken on mobile".
 ---
 
 # Layout rules
 
 The foundations under any screen: the grid elements are placed on, the
-scales their sizes come from, and what keeps content inside the boxes
-drawn for it.
+order the eye reads them in, the scales and the components their look
+comes from, and what keeps content inside the boxes drawn for it.
 
 Rules, not suggestions. Each says what to do and how to check it.
 
@@ -92,7 +98,7 @@ order or arrangement as space decreases.
 For each major component, decide how it maps between the narrow and the
 wide grid — then verify the behaviour continuously between them. The two
 representative frames are design anchors, not the only widths that must
-work (rule 6).
+work (rule 9).
 
 ### The container the grid lives in
 
@@ -113,7 +119,58 @@ work (rule 6).
   cause of that bug. Use `100%`, or `100dvw` where a full-bleed break-out
   is genuinely wanted.
 
-## 2. Use a spacing system
+## 2. Establish a visual hierarchy
+
+Every screen has a clear order of visual importance. Primary content,
+supporting content, metadata and chrome must not read at comparable size,
+contrast, weight and spacing.
+
+Those four are the instruments, and they work together — a rank that shows
+up in only one of them is a weak rank. A screen where all four are flat has
+no answer to "what am I looking at", and the reader has to find that answer
+by reading everything.
+
+- **Rank the content before styling it.** What must be read first, what is
+  support, what is metadata, what is chrome. Then let size, weight,
+  contrast and space follow that rank.
+- **Do not invent a new font size for every semantic role.** Two elements
+  with the same visual role take the same typography token (rule 4).
+- **Demote rather than promote.** Loud metadata is fixed by muting the
+  metadata, not by enlarging the title above it. A page where everything
+  is emphasized has nothing emphasized.
+- **Chrome sits below the content it frames.** Nav, toolbars, breadcrumbs
+  and footers are furniture, not exhibits.
+
+**Check — take the colour off.** Apply `filter: grayscale(1) blur(3px)` to
+`<html>` for a moment. That removes colour and detail and leaves size,
+weight and spacing — whatever still stands out is your actual hierarchy.
+If it is not the thing you meant, the page is arguing with itself.
+
+Then rank the text by visual weight, heaviest first:
+
+```js
+(() => {
+  const rows = [];
+  for (const el of document.querySelectorAll('*')) {
+    if (/^(SCRIPT|STYLE|NOSCRIPT|TEMPLATE|TITLE)$/.test(el.tagName)) continue;
+    const cs = getComputedStyle(el);
+    if (cs.display === 'none' || cs.visibility === 'hidden' || +cs.opacity === 0) continue;
+    const own = [...el.childNodes].filter(n => n.nodeType === 3)
+      .map(n => n.textContent.trim()).join(' ').trim();
+    if (!own) continue;
+    const size = parseFloat(cs.fontSize), weight = +cs.fontWeight || 400;
+    rows.push({ rank: +(size * (weight / 400)).toFixed(1), size, weight,
+                text: own.slice(0, 40) });
+  }
+  return rows.sort((a, b) => b.rank - a.rank).slice(0, 12);
+})()
+```
+
+The top of that list is what the eye reaches first. If a metadata row, a
+badge or a nav label outranks the primary content, the hierarchy is
+inverted.
+
+## 3. Use a spacing system
 
 Do not invent spacing values independently for every component. Choose a
 small scale, normally built on a 4px or 8px unit, and reuse it for gaps,
@@ -156,7 +213,7 @@ sections.
 
 Inline links inside a paragraph are exempt; standalone controls are not.
 
-## 3. Typography has a scale
+## 4. Typography has a scale
 
 Do not choose every font size independently. Establish a small scale —
 body, secondary, labels, section headings, page headings — and take every
@@ -234,7 +291,136 @@ form control that will zoom on iOS:
 Read the top of that list. Every size under 14px needs a reason, and a
 list with eleven distinct sizes in it is not a scale.
 
-## 4. Content must stay inside its layout
+## 5. Reuse before you invent
+
+Before creating a new component, variant or visual treatment, inspect what
+the project already uses — and reuse it: buttons, inputs, cards, panels,
+badges, navigation items, typography styles, spacing patterns, borders,
+radii, shadows, surface treatments.
+
+If a primitive already exists, reuse its established geometry and styling
+unless the new semantic role genuinely requires another variant. Two
+elements serving the same role take the same component, or the same
+established variant of it.
+
+Do not create near-duplicates that differ only in arbitrary details:
+
+- slightly different padding
+- a new border radius
+- a different shadow
+- a nearly identical font size
+- a slightly different muted colour
+- a one-off border treatment
+
+Create a variant only for a real semantic or interaction difference the
+existing system cannot express, and prefer extending or parameterizing an
+existing primitive over another one-off implementation.
+
+**The goal is not to maximize the number of reusable abstractions.** It is
+to prevent accidental growth of the visual vocabulary — a page ends up with
+five radii and four shadows not because anyone chose five and four, but
+because nobody looked before adding one. If the same visual decision
+appears twice, check whether it should be shared. If it appears three
+times, it probably should be.
+
+**Check** — a census of the vocabulary actually on the page. Values a
+couple of pixels apart are the smell: nobody chose 6px *and* 8px on
+purpose.
+
+```js
+(() => {
+  const props = ['borderRadius', 'boxShadow', 'color', 'fontWeight'];
+  const bag = Object.fromEntries(props.map(p => [p, new Map()]));
+  for (const el of document.querySelectorAll('*')) {
+    const cs = getComputedStyle(el);
+    if (cs.display === 'none' || cs.visibility === 'hidden') continue;
+    for (const p of props) {
+      const v = cs[p];
+      if (!v || v === 'none' || v === '0px' || v === 'rgba(0, 0, 0, 0)') continue;
+      bag[p].set(v, (bag[p].get(v) || 0) + 1);
+    }
+  }
+  const out = {};
+  for (const p of props) {
+    const m = bag[p];
+    const nums = [...m.keys()].map(parseFloat).filter(n => !isNaN(n))
+      .sort((a, b) => a - b);
+    const near = [];
+    for (let i = 1; i < nums.length; i++)
+      if (nums[i] - nums[i - 1] <= 2) near.push(nums[i - 1] + ' / ' + nums[i]);
+    out[p] = {
+      distinct: m.size,
+      values: [...m].sort((a, b) => b[1] - a[1]).slice(0, 12)
+        .map(([v, n]) => v + '  ×' + n),
+      nearDuplicates: [...new Set(near)],
+    };
+  }
+  return out;
+})()
+```
+
+## 6. Prefer flow over coordinate placement
+
+Use normal flow, flex and grid for structural layout. Do not use absolute
+positioning to reproduce ordinary page geometry — a coordinate records one
+state of one width, and content does not hold still (rules 8 and 9).
+
+Reserve absolute positioning for relationships that are genuinely overlaid
+or anchored: a badge on an avatar, an overlay, a decorative layer, a
+popover.
+
+If moving or wrapping content makes positioned elements collide, the layout
+model is wrong. Fix the model, not the coordinates.
+
+### Overlays must escape content clipping
+
+Menus, tooltips, popovers and dropdowns must not be clipped by a parent
+that exists for ordinary content layout. Before shipping one, inspect the
+ancestor chain for two separate things:
+
+- **Clipping.** Any ancestor whose `overflow` is not `visible` clips an
+  absolutely-positioned descendant.
+- **Containment and stacking.** `transform`, `filter`, `backdrop-filter`,
+  `perspective`, `will-change` on any of those, `contain: paint / layout /
+  strict / content` and `content-visibility` make an ancestor the
+  containing block for `position: fixed` descendants — so even a fixed
+  overlay gets trapped inside a card. And `z-index` only competes inside
+  its own stacking context: an overlay in a lower context cannot rise above
+  a sibling context whatever number it is given.
+
+Do not fix a clipped overlay by increasing the parent's height, deleting an
+`overflow` the content needs, or escalating `z-index`. Render it outside
+the clipping ancestor: a portal at the document root, or the browser's top
+layer via `<dialog>` or the popover attribute, which sits above every
+stacking context by construction.
+
+**Check** — point it at an overlay and it names what is trapping it:
+
+```js
+(el => {
+  const out = [];
+  for (let n = el.parentElement; n; n = n.parentElement) {
+    const cs = getComputedStyle(n), why = [];
+    if (cs.overflow !== 'visible') why.push('clips: overflow ' + cs.overflow);
+    if (cs.transform !== 'none') why.push('transform');
+    if (cs.filter !== 'none') why.push('filter');
+    if (cs.backdropFilter && cs.backdropFilter !== 'none') why.push('backdrop-filter');
+    if (cs.perspective !== 'none') why.push('perspective');
+    if (/paint|layout|strict|content/.test(cs.contain || '')) why.push('contain: ' + cs.contain);
+    if (cs.willChange !== 'auto') why.push('will-change: ' + cs.willChange);
+    if (cs.zIndex !== 'auto' && cs.position !== 'static')
+      why.push('stacking context, z-index ' + cs.zIndex);
+    if (why.length) out.push({ el: n.tagName + '.' + (n.className || ''), why });
+  }
+  return out;
+})(document.querySelector('YOUR-OVERLAY-SELECTOR'))
+```
+
+Everything after the first `clips:` line is between the overlay and the
+outside world. `transform` and friends are why a `position: fixed` escape
+hatch does not work.
+
+## 7. Content must stay inside its layout
 
 Text and intrinsic content must not enlarge a component past its intended
 container unless overflow is explicitly part of the design. This one is
@@ -327,7 +513,7 @@ structure — some tables, some timelines.
 outermost one first — a single overflowing child reports its whole
 ancestor chain.
 
-## 5. Design for variable content
+## 8. Design for variable content
 
 Do not validate a component only against the exact example text currently
 on screen. A reusable or dynamic component stays structurally correct
@@ -349,7 +535,7 @@ So test with real content, not lorem: the longest name in the data, a
 150-character URL, an empty list, and a number with five more digits than
 you expect.
 
-## 6. Check the whole width range
+## 9. Check the whole width range
 
 A layout is not responsive because it looks correct at one phone width
 and one desktop width. Use the two frames to establish the system, then
@@ -382,11 +568,16 @@ screenshot.
 
 1. The grid is written down, and every major element sits on one of its
    axes.
-2. Drag the window from 320px to full width. Nothing overflows, nothing
+2. Greyscale-blur the page: the thing that stands out is the thing that
+   matters.
+3. Nothing structural is placed by coordinate, and every overlay opens
+   outside any clipping ancestor.
+4. Drag the window from 320px to full width. Nothing overflows, nothing
    clips, nothing collapses.
-3. Run the overflow check at 320px. `pageScrollsSideways` is `false`.
-4. Every form input is 16px or more.
-5. The longest real string in the data — URL, name, number — is in the
+5. Run the overflow check at 320px. `pageScrollsSideways` is `false`.
+6. Every form input is 16px or more.
+7. The longest real string in the data — URL, name, number — is in the
    layout, and it wraps.
-6. Prose sits in a 45–75ch column.
-7. Every gap on the page is a step on the scale.
+8. Prose sits in a 45–75ch column.
+9. Every gap, radius, shadow and size on the page is one the system
+   already had.
