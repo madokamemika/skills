@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-marketplace.json",
+  "name": "madokamemika",
+  "owner": {
+    "name": "Veronica Gordi",
+    "url": "https://github.com/madokamemika"
+  },
+  "plugins": [
+    {
+      "name": "design-rules",
+      "source": "./plugins/design-rules",
+      "description": "Strip the tells that make a UI read as machine-written, and hold the layout foundations a generated page usually breaks.",
+      "category": "design",
+      "keywords": ["design", "ui", "css", "layout", "responsive", "accessibility"]
+    }
+  ]
+}

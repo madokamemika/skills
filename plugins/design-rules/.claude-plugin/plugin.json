@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
+  "name": "design-rules",
+  "displayName": "Design rules",
+  "version": "0.1.0",
+  "description": "Two review skills for shipping an interface: strip the tells that make a UI read as machine-written, and hold the layout foundations a generated page usually breaks.",
+  "author": {
+    "name": "Veronica Gordi",
+    "url": "https://github.com/madokamemika"
+  },
+  "homepage": "https://github.com/madokamemika/skills",
+  "repository": "https://github.com/madokamemika/skills",
+  "license": "MIT",
+  "keywords": ["design", "ui", "css", "layout", "responsive", "accessibility", "code-review"]
+}
