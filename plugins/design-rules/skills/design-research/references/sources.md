@@ -9,6 +9,38 @@ after it says what an automated fetch gets back:
 - **(blocked)** — answers an automated request with 403 / 429 / silence.
   Reach a specific page through a search engine instead of retrying.
 
+## GitHub — where the source actually is
+
+Step 2 of the pipeline. The query syntax is in SKILL.md; these are the
+places worth knowing by name.
+
+- **Curated name lists** (text, and Markdown, so they read perfectly) —
+  `Evavic44/portfolio-ideas` (~6.3k stars),
+  `Arif-un/awesome-portfolio-websites`,
+  `mejed-alkoutaini/designer-portfolios`. A gallery that an agent can
+  actually read; use them instead of a wall of thumbnails.
+- **Topics `awwwards`, `awwwards-inspired`, `awwwards-replica`** — for
+  browsing what people choose to rebuild. Small: about sixteen repos above
+  twenty stars in the main topic, so never rely on it to find a specific
+  site.
+- **Studio organisations** — award-winning studios publish the mechanics
+  they built to win. `Cuberto/mouse-follower` (821 stars) is the cursor
+  effect from their own award sites; `locomotivemtl/locomotive-scroll` and
+  the GSAP and Motion orgs are the same idea at library scale. The
+  original, maintained and licensed, which no rebuild is.
+- **Teaching rebuilds** — `adrianhajdin/award-winning-website` (~1k stars)
+  reconstructs an Awwwards Site of the Month step by step, and repos like
+  `ShowravKormokar/capsule` do the same for one specific site. Read for
+  the mechanism; they are practice projects, not the studio's code.
+- **Code search** — the fastest route from a technique to a working
+  example, because an API call is a distinctive token where a description
+  is not.
+
+**Licence check before you copy anything.** A repository with no LICENSE
+file is all rights reserved by default, whatever the word "clone" in its
+title suggests. Reading it to understand a mechanism is fine; pasting it
+is not.
+
 ## Juried competitions
 
 The strongest signal: a real, shipped site that a jury argued about.

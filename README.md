@@ -72,30 +72,40 @@ sweep for 320px.
 
 ### `design-research`
 
-Finds out how a design problem has already been solved before inventing an
-answer to it — because recall returns the average of everything seen, and
-the average is the definition of generic.
+Finds out how a design has actually been built before inventing an answer —
+because recall returns the average of everything seen, and the average is
+the definition of generic.
 
-Carries a catalogue of about eighty sources in
+The skill is one pipeline, and each step is a different kind of source: **a
+gallery gives you a name, GitHub gives you the code, the live site gives you
+the numbers.**
+
+1. **Get a name.** A gallery is a wall of images — measured,
+   `godly.website` returns 133 words of text and `cosmos.so` 143 — so it is
+   a name index, nothing more. Curated lists on GitHub are Markdown and read
+   perfectly, which the galleries do not.
+2. **Find somebody's rebuild.** Award winners ship no source; people who
+   rebuild them to learn do. `"dennis snellenberg" in:name,description,readme`
+   returns a 185-star rebuild whose description names the whole stack. The
+   skill carries the query rules that make this work — one name per query,
+   never the bare word `clone`, and why `topic:awwwards` is for browsing
+   rather than finding. Studios also publish their own mechanics:
+   `Cuberto/mouse-follower` is the cursor effect from their award sites,
+   original and licensed.
+3. **Read the live site.** Its markup names the stack, so a screenshot is
+   never the best available evidence; with a browser, its computed styles
+   hand over the type scale, spacing steps and breakpoints.
+4. **Find the mechanic as code.** When you know the technique but not the
+   site, search the API call instead of the name.
+
+Plus: take the mechanism and leave the implementation, check the licence
+before copying anything, rate a source before trusting it (a Dribbble shot
+is a drawing of an interface), and report three references with costs rather
+than one.
+
+The catalogue of about eighty checked sources lives in
 [`references/sources.md`](plugins/design-rules/skills/design-research/references/sources.md),
-grouped by what each is for: juried competitions, curated galleries,
-experimental work, product pattern libraries, technique write-ups that ship
-source, motion craft, typography, design systems, and the research sources
-that outrank taste when they disagree. Every URL was checked, and each is
-tagged with what an automated fetch actually gets back.
-
-The method is written for an agent rather than a human eye. A gallery is a
-wall of images — measured, `godly.website` returns 133 words and
-`cosmos.so` 143 — so it is a *name index*, and the names are the query for
-the case study. The awarded site itself is the primary source and is
-machine-readable: its markup names the stack, and its computed styles hand
-over the type scale, spacing steps and breakpoints that no screenshot
-carries. Source you can read lives in Codrops demos and in the rebuild
-repositories under the `awwwards` GitHub topics.
-
-Also: take the mechanism and leave the implementation, rate a source before
-trusting it (a Dribbble shot is a drawing of an interface), and report three
-references with costs rather than one.
+each tagged with what an automated fetch actually gets back.
 
 ## Install
 
