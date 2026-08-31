@@ -9,9 +9,18 @@
     {
       "name": "design-rules",
       "source": "./plugins/design-rules",
-      "description": "Strip the tells that make a UI read as machine-written, and hold the layout foundations a generated page usually breaks.",
+      "description": "Strip the tells that make a UI read as machine-written, hold the layout foundations a generated page usually breaks, and research how a design problem has already been solved before inventing an answer to it.",
       "category": "design",
-      "keywords": ["design", "ui", "css", "layout", "responsive", "accessibility"]
+      "keywords": [
+        "design",
+        "ui",
+        "css",
+        "layout",
+        "responsive",
+        "accessibility",
+        "design-research"
+      ],
+      "version": "0.2.0"
     }
   ]
 }

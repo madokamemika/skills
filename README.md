@@ -2,10 +2,10 @@
 
 Skills for Claude — review rules for building and shipping interfaces.
 
-Both skills are project-agnostic: they carry no palette, fonts or class
-names of their own, and they say what to do *and* how to check it. Between
-them they ship eight runnable browser checks, so a review ends in a list of
-offending elements rather than an opinion.
+The skills are project-agnostic: they carry no palette, fonts or class
+names of their own, and they say what to do *and* how to check it. The two
+review skills ship eight runnable browser checks between them, so a review
+ends in a list of offending elements rather than an opinion.
 
 ## Skills
 
@@ -70,6 +70,33 @@ colours flagging near-duplicates, the type scale plus inputs that zoom on
 iOS, undersized touch targets, what is trapping an overlay, and an overflow
 sweep for 320px.
 
+### `design-research`
+
+Finds out how a design problem has already been solved before inventing an
+answer to it — because recall returns the average of everything seen, and
+the average is the definition of generic.
+
+Carries a catalogue of about eighty sources in
+[`references/sources.md`](plugins/design-rules/skills/design-research/references/sources.md),
+grouped by what each is for: juried competitions, curated galleries,
+experimental work, product pattern libraries, technique write-ups that ship
+source, motion craft, typography, design systems, and the research sources
+that outrank taste when they disagree. Every URL was checked, and each is
+tagged with what an automated fetch actually gets back.
+
+The method is written for an agent rather than a human eye. A gallery is a
+wall of images — measured, `godly.website` returns 133 words and
+`cosmos.so` 143 — so it is a *name index*, and the names are the query for
+the case study. The awarded site itself is the primary source and is
+machine-readable: its markup names the stack, and its computed styles hand
+over the type scale, spacing steps and breakpoints that no screenshot
+carries. Source you can read lives in Codrops demos and in the rebuild
+repositories under the `awwwards` GitHub topics.
+
+Also: take the mechanism and leave the implementation, rate a source before
+trusting it (a Dribbble shot is a drawing of an interface), and report three
+references with costs rather than one.
+
 ## Install
 
 As a plugin, from this repository:
@@ -96,6 +123,9 @@ plugins/
     skills/
       no-slop/SKILL.md
       layout-rules/SKILL.md
+      design-research/
+        SKILL.md
+        references/sources.md
 ```
 
 A skill lives at `skills/<name>/SKILL.md` inside a plugin — that is where
