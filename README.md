@@ -72,40 +72,40 @@ sweep for 320px.
 
 ### `design-research`
 
-Finds out how a design has actually been built before inventing an answer —
-because recall returns the average of everything seen, and the average is
-the definition of generic.
+Researches a design in stages instead of inventing one, because recall
+returns the average of everything seen, and the average is the definition of
+generic.
 
-The skill is one pipeline, and each step is a different kind of source: **a
-gallery gives you a name, GitHub gives you the code, the live site gives you
-the numbers.**
+**Find a site → find its rebuild → read how it works → build the smallest
+version → name what you took.**
 
-1. **Get a name.** A gallery is a wall of images — measured,
-   `godly.website` returns 133 words of text and `cosmos.so` 143 — so it is
-   a name index, nothing more. Curated lists on GitHub are Markdown and read
-   perfectly, which the galleries do not.
+1. **Find a site** on Awwwards, the FWA, Godly, SiteInspire, Hoverstat.es
+   for the experimental end, Codrops when you want the effect with its
+   source. A gallery is a name index, not a picture book — measured,
+   `godly.website` returns 133 words of text — so it is mined for the names
+   of sites and studios, which are the query for everything after.
 2. **Find somebody's rebuild.** Award winners ship no source; people who
    rebuild them to learn do. `"dennis snellenberg" in:name,description,readme`
-   returns a 185-star rebuild whose description names the whole stack. The
-   skill carries the query rules that make this work — one name per query,
-   never the bare word `clone`, and why `topic:awwwards` is for browsing
-   rather than finding. Studios also publish their own mechanics:
+   returns a 185-star rebuild naming its whole stack. The skill carries the
+   query rules that make this work, each from a failed search: one name per
+   query, never the bare word `clone`, `topic:awwwards` browses rather than
+   finds. Studios also publish the mechanics they won with —
    `Cuberto/mouse-follower` is the cursor effect from their award sites,
    original and licensed.
-3. **Read the live site.** Its markup names the stack, so a screenshot is
-   never the best available evidence; with a browser, its computed styles
-   hand over the type scale, spacing steps and breakpoints.
-4. **Find the mechanic as code.** When you know the technique but not the
-   site, search the API call instead of the name.
+3. **Read how it works.** The live site's markup names its stack; its
+   computed styles hand over the type scale, spacing steps and durations.
+4. **Build the smallest version** — one card, one reveal, one pin — then put
+   it beside the original. What is still wrong is almost always the timing.
 
-Plus: take the mechanism and leave the implementation, check the licence
-before copying anything, rate a source before trusting it (a Dribbble shot
-is a drawing of an interface), and report three references with costs rather
-than one.
-
-The catalogue of about eighty checked sources lives in
-[`references/sources.md`](plugins/design-rules/skills/design-research/references/sources.md),
-each tagged with what an automated fetch actually gets back.
+Then the part that decides whether the research was worth anything: **take
+the shapes, not the palette.** The palette is the first thing anyone
+extracts and the last thing that transfers — those colours were chosen
+against someone else's photography and density. What travels is the
+composition, the shape language, the rhythm down the page, the motion *with
+its numbers*, type as material, and the register — said out loud and then
+traced back to which of the others produce it. Name those and you can build
+in the same spirit while sharing no pixels; bring back hex codes and you
+have a costume.
 
 ## Install
 
@@ -133,9 +133,7 @@ plugins/
     skills/
       no-slop/SKILL.md
       layout-rules/SKILL.md
-      design-research/
-        SKILL.md
-        references/sources.md
+      design-research/SKILL.md
 ```
 
 A skill lives at `skills/<name>/SKILL.md` inside a plugin — that is where
