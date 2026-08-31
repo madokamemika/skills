@@ -2,8 +2,8 @@
   "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
   "name": "design-rules",
   "displayName": "Design rules",
-  "version": "0.3.0",
-  "description": "Three skills for shipping an interface: strip the tells that make a UI read as machine-written, hold the layout foundations a generated page usually breaks, and research prior art in stages - find a site, find its rebuild, read how it works - taking the composition and motion rather than the palette.",
+  "version": "0.4.0",
+  "description": "Four skills for shipping an interface: strip the tells that make a UI read as machine-written, hold the layout foundations a generated page usually breaks, research prior art in stages, and build a colour system from a seed palette with every pair verified against WCAG.",
   "author": {
     "name": "Veronica Gordi",
     "url": "https://github.com/madokamemika"
@@ -20,6 +20,7 @@
     "accessibility",
     "code-review",
     "design-research",
-    "inspiration"
+    "inspiration",
+    "color"
   ]
 }

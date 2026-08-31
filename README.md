@@ -4,7 +4,8 @@ Skills for Claude — review rules for building and shipping interfaces.
 
 The skills are project-agnostic: they carry no palette, fonts or class
 names of their own, and they say what to do *and* how to check it. The two
-review skills ship eight runnable browser checks between them, so a review
+review skills ship eight runnable browser checks between them, and the
+colour skill ships a generator that verifies its own output, so a review
 ends in a list of offending elements rather than an opinion.
 
 ## Skills
@@ -107,6 +108,38 @@ traced back to which of the others produce it. Name those and you can build
 in the same spirit while sharing no pixels; bring back hex codes and you
 have a costume.
 
+### `randomcolors`
+
+Builds a colour system from a seed instead of emitting remembered hex codes.
+Left alone a model writes the same palette every time — indigo `#6366f1`,
+violet `#8b5cf6`, slate `#0f172a` — which is not a taste but Tailwind's
+default, the most probable string of characters rather than a choice.
+
+So the hues come from outside (four hexes pasted from Colorhunt or a brand,
+the keyless Colormind API with its `ui` and `fauvism`-style models, or a hue
+geometry rolled locally), and everything else is rebuilt here: a lightness
+ladder, twenty-odd roles — surfaces, text, borders, accent with its states,
+focus ring, semantics — and neutrals carrying a trace of the seed hue rather
+than being grey.
+
+Every foreground is binary-searched against its actual backgrounds until it
+reaches its target, because **OKLCH lightness is not luminance** — yellow and
+blue at the same lightness differ by more than 2:1 against white, so
+generators that *assign* lightnesses fail on some hues and not others. Muted
+text lands at exactly 4.50:1, since overshooting means it is not muted any
+more. Out-of-gamut colours lose chroma rather than being clipped, which would
+shift the hue.
+
+```
+scripts/palette.py --colormind ui
+scripts/palette.py --seed "#c93e5a,#27273c,#699198,#c1bda7"
+```
+
+Out comes a 54-pair contrast report and CSS custom properties for both
+themes; the script exits non-zero if anything fails, so it can gate a commit.
+Two hundred random seeds all passed, with accent hues spread across the whole
+circle — the indigo band took twenty of them, not all two hundred.
+
 ## Install
 
 As a plugin, from this repository:
@@ -134,6 +167,9 @@ plugins/
       no-slop/SKILL.md
       layout-rules/SKILL.md
       design-research/SKILL.md
+      randomcolors/
+        SKILL.md
+        scripts/palette.py
 ```
 
 A skill lives at `skills/<name>/SKILL.md` inside a plugin — that is where
