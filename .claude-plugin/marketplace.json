@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-marketplace.json",
+  "name": "madokamemika",
+  "owner": {
+    "name": "Veronica Gordi",
+    "url": "https://github.com/madokamemika"
+  },
+  "plugins": [
+    {
+      "name": "design-rules",
+      "source": "./plugins/design-rules",
+      "description": "Four skills for shipping an interface: strip the tells that make a UI read as machine-written, hold the layout foundations a generated page usually breaks, research prior art in stages, and build a colour system from a seed palette with every pair verified against WCAG.",
+      "category": "design",
+      "keywords": [
+        "design",
+        "ui",
+        "css",
+        "layout",
+        "responsive",
+        "accessibility",
+        "design-research"
+      ],
+      "version": "0.4.0"
+    }
+  ]
+}
