@@ -69,7 +69,13 @@ def oklch_to_rgb(L, C, H):
                 hi = mid
         C = lo
     a, b = C * math.cos(math.radians(H)), C * math.sin(math.radians(H))
-    return tuple(linear_to_srgb(v) for v in oklab_to_linear(L, a, b)), C
+    # Rounded to 8-bit here, not later. Contrast has to be measured on the
+    # values that actually ship: solving on floats and emitting hex costs up
+    # to 0.03 of a ratio, which is invisible until a pair solved to exactly
+    # 4.50 reaches the browser at 4.47 and an audit fails a page that the
+    # generator called clean.
+    rgb = tuple(float(round(linear_to_srgb(v))) for v in oklab_to_linear(L, a, b))
+    return rgb, C
 
 def to_hex(rgb):
     return '#%02x%02x%02x' % tuple(int(round(max(0, min(255, v)))) for v in rgb)
