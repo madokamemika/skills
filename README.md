@@ -15,14 +15,15 @@ ends in a list of offending elements rather than an opinion.
 Strips the tells that make an interface read as machine-written, and holds
 the correctness invariants a generated page usually misses.
 
-Twelve rules, among them: a heading is one flat colour, never a gradient or
+Thirteen rules, among them: a heading is one flat colour, never a gradient or
 a word-split; no fake `● Live` / `SYS:ONLINE` chrome or invented telemetry;
 `∴` is not decoration; an eyebrow kicker needs permission; monospace is for
 code; a card's four edges match or the whole card is filled; WCAG contrast
 in *every* state, not just at rest; nothing pressable takes a text
 selection; do not hand-write SVG artwork; research a motion mechanic before
-inventing one; and when someone says a design looks AI-made, search — do
-not guess again from the same memory that produced it.
+inventing one; when someone says a design looks AI-made, search — do not
+guess again from the same memory that produced it; and notes describe what
+shipped, never the approaches you tried and deleted.
 
 Two checks: a contrast audit that composites transparent layers, resolves
 `oklch()`/`lab()` through a canvas and sweeps selected/active states, and a

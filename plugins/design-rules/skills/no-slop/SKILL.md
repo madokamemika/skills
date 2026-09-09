@@ -3,7 +3,8 @@ name: no-slop
 description: >-
   Catch and strip the tell-tale signs of AI-generated UI — rainbow or gradient
   headings, fake live/status chrome, ∴ decoration, empty eyebrow kickers,
-  monospace body copy, half-painted card edges, hand-drawn SVG artwork — and
+  monospace body copy, half-painted card edges, hand-drawn SVG artwork,
+  notes that recount attempts you deleted — and
   hold the correctness invariants a machine-written page usually misses,
   namely WCAG contrast and
   chrome that never takes a text selection. Project-agnostic; carries no
@@ -14,7 +15,8 @@ description: >-
   establishing an initial design system, visual language, component library
   or interface direction for a new project — as well as on the concrete
   work, headings, status bars, badges, eyebrows, icons, contrast, animation,
-  motion, transitions and CSS.
+  motion, transitions, CSS, and the notes, READMEs and comments left
+  alongside them.
 ---
 
 # No slop
@@ -393,7 +395,30 @@ what you are changing because of it, so the person can tell whether you
 understood the complaint or just moved things around. If the search turns
 up nothing useful, say so and ask — that is worth more than another guess.
 
-## 12. The general rule
+## 12. Notes say what is, not what you tried
+
+Notes, READMEs, design docs and code comments describe the thing as it
+stands. An approach you tried and then deleted does not go in them: no
+"originally used a gradient here", no "tried a canvas version and backed
+it out", no "the sidebar used to be fixed", no commented-out block left
+behind as a record of the attempt. None of that describes what anyone
+will open — it is a transcript of your session, and it reads as one.
+
+A live constraint is different, and it stays. If something genuinely
+cannot work, write the constraint as a fact about the system — "the embed
+API reports no height, so the frame is sized by the parent" — not as the
+story of what you attempted. The test: does the sentence still make sense
+to someone who never watched you work? If it only makes sense as your
+history, it is not documentation.
+
+Version control already holds every path you took. Leave it there.
+
+**Check:** search the notes and comments you wrote for `tried`,
+`attempted`, `originally`, `at first`, `used to`, `no longer`,
+`instead of`, `removed` and `we decided`. Each hit either states a
+constraint that is still true of the shipped code, or comes out.
+
+## 13. The general rule
 
 If an element exists only to look techy or AI-made and carries no real
 meaning, it is slop. Leave it out. Fewer fake-system flourishes, not more.
@@ -406,3 +431,4 @@ meaning, it is slop. Leave it out. Fewer fake-system flourishes, not more.
 3. Every number on screen: traceable to real data.
 4. Every eyebrow: asked for, or removed.
 5. Every card: four edges the same, or the whole card filled.
+6. Every note: what shipped, not what you tried and deleted.
