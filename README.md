@@ -140,6 +140,21 @@ themes; the script exits non-zero if anything fails, so it can gate a commit.
 Two hundred random seeds all passed, with accent hues spread across the whole
 circle — the indigo band took twenty of them, not all two hundred.
 
+### `ponytail` (imported)
+
+The laziest solution that actually works. Before writing anything it climbs a
+ladder and stops at the first rung that holds: does this need to exist, is it
+already in the codebase, does the standard library or a native platform
+feature cover it, does an installed dependency, can it be one line. Only then
+the minimum code. Never simplifies away validation, error handling, security
+or accessibility.
+
+Imported unchanged from
+[DietrichGebert/ponytail](https://github.com/DietrichGebert/ponytail)
+(commit `c982cd4`, version 4.10.3) under its MIT licence, which sits beside it.
+Only the skill is imported; the upstream plugin's hooks, which keep the mode
+on across a session, are not.
+
 ## Install
 
 As a plugin, from this repository:
@@ -147,6 +162,7 @@ As a plugin, from this repository:
 ```
 /plugin marketplace add madokamemika/skills
 /plugin install design-rules@madokamemika
+/plugin install ponytail@madokamemika
 ```
 
 Or copy a single skill into a project or your home directory — a skill is
@@ -170,6 +186,11 @@ plugins/
       randomcolors/
         SKILL.md
         scripts/palette.py
+  ponytail/
+    .claude-plugin/plugin.json
+    LICENSE                         upstream MIT licence (Dietrich Gebert)
+    skills/
+      ponytail/SKILL.md
 ```
 
 A skill lives at `skills/<name>/SKILL.md` inside a plugin — that is where

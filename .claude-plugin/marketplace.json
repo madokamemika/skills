@@ -21,6 +21,19 @@
         "design-research"
       ],
       "version": "0.4.0"
+    },
+    {
+      "name": "ponytail",
+      "source": "./plugins/ponytail",
+      "description": "Lazy senior dev mode: the simplest, shortest solution that actually works. YAGNI, stdlib and native platform features first, no unrequested abstractions. Imported from DietrichGebert/ponytail.",
+      "category": "development",
+      "keywords": [
+        "simplicity",
+        "yagni",
+        "minimal",
+        "code-review"
+      ],
+      "version": "4.10.3"
     }
   ]
 }

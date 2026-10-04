@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
+  "name": "ponytail",
+  "displayName": "Ponytail",
+  "version": "4.10.3",
+  "description": "Lazy senior dev mode: the simplest, shortest solution that actually works. YAGNI, stdlib and native platform features first, no unrequested abstractions. Imported from DietrichGebert/ponytail (skill only, no hooks).",
+  "author": {
+    "name": "Dietrich Gebert",
+    "url": "https://github.com/DietrichGebert"
+  },
+  "homepage": "https://github.com/DietrichGebert/ponytail",
+  "repository": "https://github.com/DietrichGebert/ponytail",
+  "license": "MIT",
+  "keywords": ["simplicity", "yagni", "minimal", "code-review", "refactoring"]
+}
